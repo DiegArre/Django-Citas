@@ -1,0 +1,72 @@
+{% extends "core/base.html" %}
+
+{%block titulo %}Citas{%endblock%}
+{% block navwel %}<a class="nav-link disabled" aria-current="Bienvenido">Bienvenid@ {{request.session.usuario.nombre}} {{request.session.usuario.apellido}}</a>{% endblock %}
+{% block navend %}<a href="/account/edit" class="link-light me-4"><i class="fas fa-user-edit"></i></a>{% endblock %}
+{% block contenido  %}
+<div class="container ">
+    <div class="row row-cols-2 justify-content-center justify-content-lg-between">
+
+        <!-- Citas -->
+        <div class="mt-2 citas col-11 col-lg-7 mt-lg-5 order-2 order-lg-1" >
+            <h4>Citas</h4>
+        {% for cita in citas %}
+            <div class="cita mb-2">
+                <hr class="mt-1">       
+                <p><span>{{cita.autor}} :  </span>"{{cita.cita}}"</p>
+                <h6 ><span>Posted by </span> <a class="link-secondary" href="/user/{{cita.user.id}}">{{cita.user.nombre}} {{cita.user.apellido}}</a>
+                <span class="text-secondary fw-lighter text-opacity-50"> • {{cita.created_at}}</span></h6>
+
+                <form action="/cita/like" method="POST" class="d-inline-block form-like">
+                    {% csrf_token %}
+                    <input type="hidden" name="cita_id" value="{{cita.id}}">
+                    <a class="ms-1 pointer " ><i class="far fa-heart"> {{cita.likes.count}}</i></a>
+                </form>
+
+                {% if cita.user.id == request.session.usuario.id %}
+                    <form action="/cita/delete" method="POST" class="d-inline-block ms-2 form-delete">
+                        {% csrf_token %}
+                        <input type="hidden" name="cita_id" value="{{cita.id}}">
+                        <a class=" link-danger pointer"><i class="far fa-trash-alt"></i></a>
+                    </form>
+                {% endif %}
+            </div>
+        {% endfor %}
+        </div>
+
+        
+
+        <div class="col-11 col-lg-4 order-lg-2 mt-5">
+            <!-- POST CITA -->
+            <h6>Añade un cita!</h6>
+            <form action="/cita/post" method="POST" class="">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <span class="input-group-text bg-t4 text-light"  id="basic-addon1" >Autor</span>
+                    <input autocomplete="off" type="text" name="autor" class="form-control" placeholder="Autor" aria-label="Autor" aria-describedby="basic-addon1" required>
+                </div>
+                <div class="input-group ">
+                    <span class="input-group-text bg-t4 text-light">Cita  </span>
+                    <textarea class="form-control" name="cita" aria-label="Cita" placeholder="Escribe aquí..." required></textarea>
+                </div>
+                <div class="text-end mt-2">
+                    <button class="my-auto btn btn-t4 rounded-pill" type="submit" >Postear</button>
+                </div>
+            </form> 
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(".form-delete").on("click",function(){
+       $(this).submit() 
+    });
+
+    $(".form-like").on("click",function(){
+       $(this).submit() 
+    });
+</script>
+
+{% endblock %}

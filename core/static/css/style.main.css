@@ -1,0 +1,42 @@
+body {
+    background-color: #F8F9FD;
+}
+
+.bg-t1{
+    background-color: #15202B;
+}
+
+.bg-t2{
+    background-color: #192734;
+}
+
+.bg-t3{
+    background-color: #5E82B5;
+}
+
+.bg-t4{
+    background-color: #65BBF2;
+}
+
+.mt-50{
+    margin-top: 56px !important;
+}
+
+.text-t1{
+    color: #15202B;
+}
+
+.text-t2{
+    color: #65BBF2!important;
+}
+
+
+.btn-t4{
+    color: white;
+    border-color: #65BBF2;
+    background-color: #65BBF2;
+}
+
+.pointer{
+    cursor: pointer;
+}

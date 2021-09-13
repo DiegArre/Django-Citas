@@ -1,0 +1,58 @@
+{% extends "core/base.html" %}
+{%block titulo %}Edit{%endblock%}
+{% block estilos %}
+{% endblock %}
+{% block navwel %}<a class="active nav-link" href="/" aria-current="Bienvenido"><i class="fas fa-reply"></i> BACK</a>{% endblock %}
+{% block contenido %}
+
+    {% load static %}
+    <div class="container mt-3 mt-lg-5">
+        <div class="row justify-content-center "> 
+            <div class="mt-1 col-12 col-lg-6 text-center mt-4">
+                <h2>Editar usuario</h2>
+                <p>Actualiza tú información si lo deseas!</p>
+                <form action="/account/edit" method="POST" class="">
+                    {% csrf_token %}
+                    <div class="">
+                        <div class="form-floating mb-1">
+                            <input 
+                            type="text" 
+                            class="form-control mb-1" 
+                            id="InputNombre" 
+                            name="nombre" 
+                            placeholder="Nombre" 
+                            value="{{request.session.usuario.nombre}}" required>
+                            <label for="InputNombre">Nombre</label>
+                        </div>
+                        <div class="form-floating mb-1">
+                            <input 
+                            type="text" 
+                            class="form-control" 
+                            id="InputApellido" 
+                            name="apellido" 
+                            placeholder="Apellido" 
+                            value="{{request.session.usuario.apellido}}" required>
+                            <label for="InputApellido">Apellido</label>
+                        </div>
+                    </div>
+                    <div class="form-floating mb-1">
+                        <input 
+                        type="email" 
+                        class="form-control" 
+                        id="InputCorreo" 
+                        name="email" 
+                        placeholder="Email" 
+                        value="{{request.session.usuario.email}}" required>
+                        <label for="InputCorreo">Email</label>
+                    </div>
+                    <button class="text-light btn btn-lg bg-t2 mt-2 col-12" type="submit">Actualizar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
